@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Imgur Test</title>
+</head>
+<body>
+    <div id="imgur-container">Downloading {{ imgur_filename }}...</div>
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+        $(function(){
+            var s = new WebSocket('ws://' + location.host + '/ws/imgur?transaction_id={{ transaction_id }}');
+            s.onopen = function(event) {
+                console.log('WebSocket connected.');
+            };
+            var container = $('#imgur-container');
+
+            container.on('click', 'button', function(event){
+                s.send('finish');
+            });
+            s.onmessage = function(event) {
+                var msg = event.data;
+                console.log(msg);
+                container.html('');
+                $('<img>').attr('src', msg).appendTo(container);
+                container.append('<br />');
+                $('<button>').attr('class', 'button').html('Finish Transaction').appendTo(container);
+            };
+        });
+    </script>
+</body>
+</html>
