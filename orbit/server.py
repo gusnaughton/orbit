@@ -14,7 +14,6 @@ class WebSocketReceiver(object):
 
 	def makeConnection(self, transport):
 		self.transport = transport
-		self.connection.state.onNewConnection(self.connection)
 
 	def closeReceived(self, statusCode, statusMessage):
 		pass
