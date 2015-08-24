@@ -7,7 +7,8 @@ Orbit was written to fill a gap in current WebSocket frameworks. Many current li
 It would be wise to get familiar with Twisted before using this library, as there can be many "gotchas" associated with using Twisted and libraries that don't use Twisted as their networking backend. SQLAlchemy's ORM is a good example of this, as it forcibly blocks the main thread during its usage. Alchimia is a library that circumvents that using the SQLAlchemy engine-based query system with Twisted's deferToThread mechanism, but unfortunately the ORM can't be used. Another good example is the requests library, for which the Twisted maintainers have written treq for HTTP requests.  
   
   
-Here is an example of what your protocol code may look like:  
+Here is an example of what your protocol code may look like:
+
     # The state is what holds all of the important data of our Transaction.
     # In this case, the imgur filename to download.
     class ImgurDownloadState(State):
