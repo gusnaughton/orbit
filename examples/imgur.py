@@ -45,7 +45,7 @@ class ImgurDownloadState(State):
 		self.transaction.sendUpdate('/static/imgur/%s' % self.imgur_filename)
 
 	def onUpdate(self, ws, opcode, data, fin):
-		print 'hhhhhhhhhh'
+		print 'User connected!'
 		# This occurs when the user presses "OK" to complete the transaction.
 		if data == 'finish':
 			self.transaction.finish()
