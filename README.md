@@ -11,22 +11,29 @@ Here is an example of what your protocol code may look like:
 
     # The state is what holds all of the important data of our Transaction.
     # In this case, the imgur filename to download.
+
     class ImgurDownloadState(State):
     	def __init__(self, imgur_filename):
     		self.imgur_filename = imgur_filename.encode('utf8') # for treq
     
     	@inlineCallbacks
     	def onNewConnection(self, ws):
+    	    # default opcode is TEXT, but this can be BINARY as well.
     		ws.opcode = TEXT
     		local_file = os.path.join(imgur_folder, self.imgur_filename)
+
     		# If we don't already have the image downloaded, we download it in a non-blocking manner with treq
     		# If the file is already downloaded, we can immediately send an update containing the location of the
     		# downloaded image.
+
     		if not os.path.isfile(local_file):
     			print 'Downloading to %s' % local_file
+
     			# We use treq to download the image, then we send an update with the image location
+
     			resp = yield treq.get('http://i.imgur.com/%s' % self.imgur_filename)
     			file_content = yield resp.content()
+
     			with open(local_file, 'w') as out:
     				print 'written!'
     				out.write(file_content)
