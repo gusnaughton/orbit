@@ -9,35 +9,33 @@ packEndians = {
 	little_endian: '<'
 }
 
-struct.packEndians = packEndians
-
 class ReadException(Exception):
 	pass
 
 # endian is here for automatic struct.packing purposes
 def packByte(b, endian=big_endian):
-	return struct.pack('%sB' % struct.packEndians[endian], b)
+	return struct.pack('%sB' % packEndians[endian], b)
 
 def packSByte(endian=big_endian):
-	return struct.pack('%sb' % struct.packEndians[endian], b)
+	return struct.pack('%sb' % packEndians[endian], b)
 
 def packShort(endian=big_endian):
-	return struct.pack('%sh' % struct.packEndians[endian], s)
+	return struct.pack('%sh' % packEndians[endian], s)
 
 def packUShort(s, endian=big_endian):
-	return struct.pack('%sH' % struct.packEndians[endian], s)
+	return struct.pack('%sH' % packEndians[endian], s)
 
 def packInt(i, endian=big_endian):
-	return struct.pack('%si' % struct.packEndians[endian], i)
+	return struct.pack('%si' % packEndians[endian], i)
 
 def packUInt(i, endian=big_endian):
-	return struct.pack('%sI' % struct.packEndians[endian], i)
+	return struct.pack('%sI' % packEndians[endian], i)
 
 def packLong(i, endian=big_endian):
-	return struct.pack('%sq' % struct.packEndians[endian], i)
+	return struct.pack('%sq' % packEndians[endian], i)
 
 def packULong(i, endian=big_endian):
-	return struct.pack('%sQ' % struct.packEndians[endian], i)
+	return struct.pack('%sQ' % packEndians[endian], i)
 
 # All of the names of the compiled structs on the reader object
 # This makes dealing with endians faster
