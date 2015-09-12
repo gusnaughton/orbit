@@ -9,6 +9,7 @@ packEndians = {
 	little_endian: '<'
 }
 
+struct.packEndians = packEndians
 
 class ReadException(Exception):
 	pass
